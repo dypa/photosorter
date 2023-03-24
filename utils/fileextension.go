@@ -16,6 +16,7 @@ func IsAllowedExtension(path string) bool {
 		".mp4",
 		".avi",
 		".mkv",
+		".mpg",
 	}
 
 	return containsExtension(path, allowedExtensions)
