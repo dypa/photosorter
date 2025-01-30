@@ -5,19 +5,19 @@ import (
 	"sync"
 )
 
+const MAX_CONCURRENT_GOROUTINES = 16
+
 type CommandInterface interface {
 	getDirectoryForIteration() string
 	CanRun(file string) bool
 	Run(file string) error
 }
 
-//TODO make counter for total and done gorutines
+// TODO make counter for total and done gorutines
 func RunCommand(currentCommand CommandInterface) error {
 	var wg sync.WaitGroup
 
-	//TODO check 32, 64 etc
-	maxNbConcurrentGoroutines := 16
-	concurrentGoroutines := make(chan struct{}, maxNbConcurrentGoroutines)
+	concurrentGoroutines := make(chan struct{}, MAX_CONCURRENT_GOROUTINES)
 
 	fileList, err := utils.DirectoryIterator(currentCommand.getDirectoryForIteration())
 
